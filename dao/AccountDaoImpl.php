@@ -1,4 +1,7 @@
 <?php
+
+use App\models\Account;
+
 interface AccountDao
 {
     public function getAllAccounts();

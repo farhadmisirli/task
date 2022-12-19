@@ -1,5 +1,17 @@
 <?php
 
+namespace App\operations;
+
+use App\exceptions\UnsupportedTransactionType;
+use App\models\Account;
+
+enum TransactionType
+{
+    case WITHDRAW;
+    case DEPOSIT;
+    case TRANSFER;
+}
+
 interface TransactionalOperation
 {
     public function makeTransaction();
@@ -7,9 +19,10 @@ interface TransactionalOperation
 
 class WithdrawOperation implements TransactionalOperation
 {
-    public function makeTransaction()
+    public function makeTransaction(Account $account = null, float $amount = 0)
     {
         // TODO: Implement makeTransaction() method.
+        $account->setBalance($account->getBalance() - $amount);
     }
 }
 
@@ -28,3 +41,4 @@ class TransferOperation implements TransactionalOperation
         // TODO: Implement makeTransaction() method.
     }
 }
+

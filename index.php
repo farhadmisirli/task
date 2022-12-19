@@ -1,19 +1,19 @@
 <?php
 
-class Operation
-{
-    private TransactionalOperation $operation;
+namespace App;
 
-    public function __construct(TransactionalOperation $operation)
-    {
-        $this->operation = $operation;
-    }
+use App\controllers\PaymentController;
+use App\requests\WithdrawOperationRequest;
 
-    function performOperation(): void
-    {
-        $this->operation->makeTransaction();
-    }
-}
+require "controllers/PaymentController.php";
+require "requests/WithdrawOperationRequest.php";
 
-$operation = new Operation(new WithdrawOperation());
-$operation->performOperation();
+$paymentController = new PaymentController();
+
+// api/v1/withdrawal
+$paymentController->withdraw(new WithdrawOperationRequest(300));
+
+
+// api/v1/balance
+// api/v1/transfer
+
